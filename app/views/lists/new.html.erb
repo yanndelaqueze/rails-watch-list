@@ -1,0 +1,7 @@
+<div class="container">
+<h2 class="mt-3">New List</h2>
+<%= simple_form_for [@list] do |f| %>
+  <%= f.input :name %>
+  <%= f.submit "Create List", class: "btn btn-success" %>
+<% end %>
+</div>
