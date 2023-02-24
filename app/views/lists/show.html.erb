@@ -1,6 +1,25 @@
 
-<div class="container">
-<h1 class="text-center mt-3"><%= @list.name %></h1>
+<% if @list.photo.attached? %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path @list.photo.key, height: 300, crop: :fit %>');">
+    <div class="container">
+      <h1 class="text-center"><%= @list.name %></h1>
+    </div>
+  </div>
+<% else %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.jpg);">
+    <div class="container">
+      <h1 class="text-center"><%= @list.name %></h1>
+    </div>
+  </div>
+<% end %>
+
+<div class="container d-flex justify-content-around align-items-center my-3">
+  <%= link_to "Back to Lists", lists_path, class:"btn btn-warning"  %>
+  <%= link_to "Delete List", list_path(@list),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-danger text-light" %>
+</div>
+
+<div class="container mt-3">
 <div class="container text-center">
   <div class="row mb-3">
       <% @list.bookmarks.each do |bookmark| %>
@@ -26,6 +45,4 @@
     <%= f.association :movie %>
     <%= f.button :submit, class:"btn btn-success mb-3" %>
   <% end %>
-  <%= link_to "Back to Lists", lists_path, class:"btn btn-warning mb-5"  %>
-  </div>
 </div>

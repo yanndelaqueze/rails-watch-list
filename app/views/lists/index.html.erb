@@ -1,9 +1,21 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://pyxis.nymag.com/v1/imgs/978/4d0/4b4779e1dcb86984abe55c08366f9babe7-13-empty-theater.jpg);">
+  <div class="container">
+    <h1 class="text-center">My Movie Lists</h1>
+  </div>
+</div>
+
 <div class="container my-3">
-<h2 class="text-center">My Lists</h2>
 <%= link_to "Create new List", new_list_path, class:"btn btn-warning text-light"  %>
 <div class="cards mt-3">
-<% @lists.each do |list| %>
-<div class="card-category text-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://www.corneliustoday.com/wp-content/uploads/2021/04/theater-seats.jpg)">
-    <%= link_to list.name, list_path(list), class:"text-decoration-none text-light" %>
+  <% @lists.each do |list| %>
+    <% if list.photo.attached? %>
+      <div class="card-category text-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path list.photo.key, height: 300, crop: :fit %>')">
+        <%= link_to list.name, list_path(list), class:"text-decoration-none text-light" %>
+      </div>
+    <% else %>
+      <div class="card-category text-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://www.corneliustoday.com/wp-content/uploads/2021/04/theater-seats.jpg)">
+        <%= link_to list.name, list_path(list), class:"text-decoration-none text-light" %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
-<% end %>
